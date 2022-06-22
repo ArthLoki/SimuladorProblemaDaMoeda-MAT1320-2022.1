@@ -86,12 +86,12 @@ def comparacaoProb(prob1, prob2):
     print(f"\n-----> CONCLUSÃO:\n\nPlayer 1: {prob1}\nPlayer 2: {prob2}\n")
     if prob1 > prob2:
         print("Player 1 tem uma probalidade maior de ganhar")
-        print("Player 2 tem uma probalidade maior de perder")
+        print("Player 2 tem uma probalidade maior de perder\n\n")
     elif prob1 < prob2:
         print("Player 2 tem uma probalidade maior de ganhar")
-        print("Player 1 tem uma probalidade maior de perder")
+        print("Player 1 tem uma probalidade maior de perder\n\n")
     else:
-        print("Player 1 e Player 2 têm a mesma probabilidade de ganhar")
+        print("Player 1 e Player 2 têm a mesma probabilidade de ganhar\n\n")
 
 
 def main():

@@ -9,7 +9,7 @@ def getFace(var):
 def getRandom():
     return random.randint(0,1)
 
-def getPadrão(maxJogadas):
+def getPadrao(maxJogadas):
     jogadas = []
     rand = -1
     face = ""
@@ -106,7 +106,7 @@ def main():
     lJogada2 = getJogadaPlayer(lenght, vez, 2)
 
     # Padrão -> OK
-    padrao = getPadrão(nJogadas)
+    padrao = getPadrao(nJogadas)
 
     # get acertos de cada jogador -> OK
     acertosP1 = getAcertos(padrao, lJogada1)

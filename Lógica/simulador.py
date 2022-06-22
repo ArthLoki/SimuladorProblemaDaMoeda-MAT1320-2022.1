@@ -23,21 +23,21 @@ def getPadrao(maxJogadas):
     return jogadas
 
 
-def getJogadaPlayer(maxJogadas, vez, numJogador):
+def getJogadaPlayer(lenght, vez, numJogador):
     jogada = input(f"\nJogador {numJogador} - Digite a sua jogada no formato: j1,j2,...,jn\n")
 
     if jogada == "exit":
         print("\nVocê fechou o simulador\n")
         exit(1)
 
-    if len(jogada) != maxJogadas:
+    if len(jogada) != lenght:
         print("\nEntrada de dados inválida.Tente novamente.\n")
         vez+=1
         if vez > 3:
             print("\nNúmero de tentativas ultrapassado\n")
             exit(1)
         else:
-            getJogadaPlayer(maxJogadas, vez)
+            getJogadaPlayer(lenght, vez)
 
     else:
         return (jogada.strip()).split(",")

@@ -115,7 +115,7 @@ def main():
 
     # get probabilidade de ganhar
     prob1 = getProb(acertosP1, nJogadas)
-    prob2 = getProb(acertosP2, nJogadas)
+    prob2 = 1 - prob1
 
     comparacaoProb(prob1, prob2)
 

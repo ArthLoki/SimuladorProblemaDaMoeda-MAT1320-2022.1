@@ -79,8 +79,10 @@ def getCompJogadas(jog1, jog2, nJogadas, vez, padrao):
         print("\nO jogador 2 ganhou e o jogador 1 paga a conta.\n")
     elif jog1 == jog2:
         print("\nEmpate. Jogue novamente.\n")
-        jog1 = getJogadaPlayer(nJogadas, vez, 1)
-        jog2 = getJogadaPlayer(nJogadas, vez, 2)
+        p1 = getJogadaPlayer(nJogadas, vez, 1)
+        p2 = getJogadaPlayer(nJogadas, vez, 2)
+        jog1 = getCombInPadrao(padrao, p1)
+        jog2 = getCombInPadrao(padrao, p2)
         vez += 1
         if vez > 4:
             print("\nNúmero de tentativas ultrapassado. Inicie a simulação novamente.\n")

@@ -37,10 +37,11 @@ def getJogadaPlayer(lenght, vez, numJogador):
             print("\nNúmero de tentativas ultrapassado\n")
             exit(1)
         else:
-            getJogadaPlayer(lenght, vez)
+            getJogadaPlayer(lenght, vez, numJogador)
 
     else:
         return (jogada.strip()).split(",")
+
 
 
 def getMaxJogadas():
@@ -121,4 +122,4 @@ def main():
 
     return 
 
-main()
+# main()

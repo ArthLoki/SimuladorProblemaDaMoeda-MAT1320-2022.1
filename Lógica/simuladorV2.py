@@ -1,4 +1,6 @@
-import random, math
+import random
+import math
+
 
 def getFace(var):
     if var == 1:
@@ -6,25 +8,28 @@ def getFace(var):
     elif var == 0:
         return "k"
 
+
 def getRandom():
-    return random.randint(0,1)
+    return random.randint(0, 1)
+
 
 def getPadrao(maxJogadas):
     jogadas = ""
     rand = -1
     face = ""
-    
-    i=0
+
+    i = 0
     while (i < maxJogadas):
         rand = getRandom()
         face = getFace(rand)
-        jogadas+=face
-        i+=1
+        jogadas += face
+        i += 1
     return jogadas
 
 
 def getJogadaPlayer(lenght, vez, numJogador):
-    jogada = input(f"\nJogador {numJogador} - Digite a sua jogada no formato: (apenas 0 para k e 1 para c)\n")
+    jogada = input(
+        f"\nJogador {numJogador} - Digite a sua jogada no formato: (apenas 0 para k e 1 para c)\n")
     realJogada = ""
 
     if jogada == "exit":
@@ -32,13 +37,13 @@ def getJogadaPlayer(lenght, vez, numJogador):
         exit(1)
     else:
         i = 0
-        while (i<len(jogada)):
+        while (i < len(jogada)):
             realJogada += getFace(int(jogada[i]))
-            i+=1
+            i += 1
 
         if len(realJogada) != lenght:
             print("\nEntrada de dados inválida.Tente novamente.\n")
-            vez+=1
+            vez += 1
             if vez > 3:
                 print("\nNúmero de tentativas ultrapassado\n")
                 exit(1)
@@ -66,7 +71,7 @@ def getCombInPadrao(padrao, jogadaPlayer):
         return False
 
 
-def getCompJogadas(jog1, jog2, nJogadas, vez, padrao):  
+def getCompJogadas(jog1, jog2, nJogadas, vez, padrao):
     print(f"\nA sequência foi {padrao}.\n")
     if jog1 == True and jog2 == False:
         print("\nO jogador 1 ganhou e o jogador 2 paga a conta.\n")
@@ -76,7 +81,7 @@ def getCompJogadas(jog1, jog2, nJogadas, vez, padrao):
         print("\nEmpate. Jogue novamente.\n")
         jog1 = getJogadaPlayer(nJogadas, vez, 1)
         jog2 = getJogadaPlayer(nJogadas, vez, 2)
-        vez+=1
+        vez += 1
         if vez > 4:
             print("\nNúmero de tentativas ultrapassado. Inicie a simulação novamente.\n")
             exit(1)
@@ -87,9 +92,9 @@ def getCompJogadas(jog1, jog2, nJogadas, vez, padrao):
 def toList(string):
     i = 0
     lista = []
-    while (i<len(string)):
+    while (i < len(string)):
         lista.append(string[i])
-        i+=1
+        i += 1
     return lista
 
 
@@ -98,18 +103,55 @@ def getQtdJogadaImPadrao(jogada, padrao, nJogadas):
     qtd = 0
 
     i = 0
-    while(i<len(padrao)//3):
+    while(i < len(padrao)//3):
         init = 0+4*i
         fim = (nJogadas+1)+nJogadas*i
         if jogada == padrao[init:fim]:
-            qtd+=1
-        i+=1
+            qtd += 1
+        i += 1
 
     return qtd
 
 
+def criaGrafo(sequencia1, sequencia2):
 
+    grafo = {"": {}}
 
+    i = 0
+
+    while sequencia1 not in grafo.keys():
+
+        current_state = sequencia1[:i]
+
+        choice = sequencia1[i:][0]
+
+        next_state = current_state + choice
+
+        grafo[current_state][choice] = next_state
+
+        if next_state not in grafo.keys():
+            grafo[next_state] = {}
+
+        i += 1
+
+    j = 0
+
+    while sequencia2 not in grafo.keys():
+
+        current_state = sequencia2[:j]
+
+        choice = sequencia2[j:][0]
+
+        next_state = current_state + choice
+
+        grafo[current_state][choice] = next_state
+
+        if next_state not in grafo.keys():
+            grafo[next_state] = {}
+
+        j += 1
+
+    return grafo
 
 
 def main():
@@ -135,8 +177,7 @@ def main():
 
     print(getQtdJogadaImPadrao(jogada1, padrao, nJogadas))
 
+    return
 
-
-    return 
 
 main()

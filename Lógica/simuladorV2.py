@@ -91,30 +91,6 @@ def getCompJogadas(jog1, jog2, nJogadas, vez, padrao):
             getCompJogadas(jog1, jog2, nJogadas, vez, padrao)
 
 
-def toList(string):
-    i = 0
-    lista = []
-    while (i < len(string)):
-        lista.append(string[i])
-        i += 1
-    return lista
-
-
-def getQtdJogadaImPadrao(jogada, padrao, nJogadas):
-
-    qtd = 0
-
-    i = 0
-    while(i < len(padrao)//3):
-        init = 0+4*i
-        fim = (nJogadas+1)+nJogadas*i
-        if jogada == padrao[init:fim]:
-            qtd += 1
-        i += 1
-
-    return qtd
-
-
 def criaGrafo(sequencia1, sequencia2):
 
     grafo = {"": {}}
@@ -174,8 +150,6 @@ def main():
     jog2 = getCombInPadrao(padrao, jogada2)
 
     getCompJogadas(jog1, jog2, nJogadas, vez, padrao)
-
-    # print(getQtdJogadaImPadrao(jogada1, padrao, nJogadas))
 
     return
 

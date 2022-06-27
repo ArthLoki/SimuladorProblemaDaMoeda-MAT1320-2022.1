@@ -54,6 +54,8 @@ def criaGrafo(sequencia1, sequencia2):
             checkPrevStateExist(origin, state[1:])
 
         else:
+            if state == 'kc':
+                print('sou o kc')
             if 'c' not in grafo[state].keys():
                 target_state = (state + 'c')[1:]
                 if target_state in grafo.keys():
@@ -62,6 +64,8 @@ def criaGrafo(sequencia1, sequencia2):
                     checkPrevStateExist(origin, target_state[1:])
 
             elif 'k' not in grafo[state].keys():
+                if state == 'kc':
+                    print('sou o kc no if')
                 target_state = (state + 'k')[1:]
                 if target_state in grafo.keys():
                     grafo[origin]['k'] = target_state
@@ -77,7 +81,9 @@ def criaGrafo(sequencia1, sequencia2):
     return grafo
 
 
-grafo = (criaGrafo('cck', 'ckc'))
+grafo = (criaGrafo('kcck', 'ccck'))
+
+print(grafo)
 
 for node in grafo.keys():
     G.add_node(node)
@@ -94,9 +100,6 @@ nx.draw(G, pos=nx.circular_layout(G), with_labels=True)
 plt.show()
 
 
-# print(G)
-
-
 # def calculaProb(state, sequencia1, sequencia2):
 
 #     if state == sequencia1:
@@ -106,12 +109,12 @@ plt.show()
 #         return 0
 
 #     if grafo[state]['c'] == state:
-#         return calculaProb(grafo[state]['k'], sequencia1, sequencia2)
+#         return 2 * calculaProb(grafo[state]['k'], sequencia1, sequencia2)
 
 #     elif grafo[state]['k'] == state:
-#         return calculaProb(grafo[state]['c'], sequencia1, sequencia2)
+#         return 2 * calculaProb(grafo[state]['c'], sequencia1, sequencia2)
 
 #     return 0.5 * (calculaProb(grafo[state]['c'], sequencia1, sequencia2) + calculaProb(grafo[state]['k'], sequencia1, sequencia2))
 
 
-# print(calculaProb('', 'cck', 'ckc'))
+# print(calculaProb('', 'cc', 'kk'))

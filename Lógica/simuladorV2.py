@@ -1,5 +1,7 @@
 import random
 import math
+import networkx as nx
+import matplotlib.pyplot as plt
 
 
 def getFace(var):
@@ -91,6 +93,9 @@ def getCompJogadas(jog1, jog2, nJogadas, vez, padrao):
             getCompJogadas(jog1, jog2, nJogadas, vez, padrao)
 
 
+G = nx.DiGraph()
+
+
 def criaGrafo(sequencia1, sequencia2):
 
     grafo = {"": {}}
@@ -141,6 +146,8 @@ def criaGrafo(sequencia1, sequencia2):
             checkPrevStateExist(origin, state[1:])
 
         else:
+            if state == 'kc':
+                print('sou o kc')
             if 'c' not in grafo[state].keys():
                 target_state = (state + 'c')[1:]
                 if target_state in grafo.keys():
@@ -149,6 +156,8 @@ def criaGrafo(sequencia1, sequencia2):
                     checkPrevStateExist(origin, target_state[1:])
 
             elif 'k' not in grafo[state].keys():
+                if state == 'kc':
+                    print('sou o kc no if')
                 target_state = (state + 'k')[1:]
                 if target_state in grafo.keys():
                     grafo[origin]['k'] = target_state
@@ -182,6 +191,23 @@ def main():
     jog2 = getCombInPadrao(padrao, jogada2)
 
     getCompJogadas(jog1, jog2, nJogadas, vez, padrao)
+
+    grafo = (criaGrafo('kcck', 'ccck'))
+
+    print(grafo)
+
+    for node in grafo.keys():
+        G.add_node(node)
+
+    plt.figure(2)
+    for node in grafo.keys():
+        if 'c' in grafo[node].keys():
+            G.add_edge(node, grafo[node]['c'])
+        if 'k' in grafo[node].keys():
+            G.add_edge(node, grafo[node]['k'])
+
+    nx.draw(G, pos=nx.circular_layout(G), with_labels=True)
+    plt.show()
 
     return
 

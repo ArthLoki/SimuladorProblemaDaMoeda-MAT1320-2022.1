@@ -65,28 +65,29 @@ def getMaxJogadas():
     return nJogadas
 
 
-def getCombInPadrao(padrao, jogadaPlayer):
+def getIndCombInPadrao(padrao, jogadaPlayer, nJogadas):
 
-    if jogadaPlayer in padrao:
-        return True
-    else:
-        return False
+    i = 0
+    while i < len(padrao)-nJogadas-1:
+        if jogadaPlayer==padrao[i:i+nJogadas]:
+            return i
+        i+=1
 
 
 def getCompJogadas(jog1, jog2, nJogadas, vez, padrao):
     print(f"\nA sequência foi {padrao}.\n")
-    if jog1 == True and jog2 == False:
-        print("\nO jogador 1 ganhou e o jogador 2 paga a conta.\n")
-    elif jog1 == False and jog2 == True:
-        print("\nO jogador 2 ganhou e o jogador 1 paga a conta.\n")
+    if jog1 < jog2:
+            print("Jogador 1 venceu e o jogador 2 para a conta.")
+    elif jog1 > jog2:
+        print("Jogador 2 venceu e o jogador 1 para a conta.")
     elif jog1 == jog2:
         print("\nEmpate. Jogue novamente.\n")
         p1 = getJogadaPlayer(nJogadas, vez, 1)
         p2 = getJogadaPlayer(nJogadas, vez, 2)
-        jog1 = getCombInPadrao(padrao, p1)
-        jog2 = getCombInPadrao(padrao, p2)
+        jog1 = getIndCombInPadrao(padrao, p1, nJogadas)
+        jog2 = getIndCombInPadrao(padrao, p2, nJogadas)
         vez += 1
-        if vez > 4:
+        if vez > 10:
             print("\nNúmero de tentativas ultrapassado. Inicie a simulação novamente.\n")
             exit(1)
         else:
@@ -146,8 +147,6 @@ def criaGrafo(sequencia1, sequencia2):
             checkPrevStateExist(origin, state[1:])
 
         else:
-            if state == 'kc':
-                print('sou o kc')
             if 'c' not in grafo[state].keys():
                 target_state = (state + 'c')[1:]
                 if target_state in grafo.keys():
@@ -156,8 +155,6 @@ def criaGrafo(sequencia1, sequencia2):
                     checkPrevStateExist(origin, target_state[1:])
 
             elif 'k' not in grafo[state].keys():
-                if state == 'kc':
-                    print('sou o kc no if')
                 target_state = (state + 'k')[1:]
                 if target_state in grafo.keys():
                     grafo[origin]['k'] = target_state
@@ -176,8 +173,8 @@ def criaGrafo(sequencia1, sequencia2):
 def main():
 
     # # get numero jogadas
-    nJogadas = getMaxJogadas()
-    nJogadasPadrao = 4*nJogadas
+    nJogadas = 3
+    nJogadasPadrao = 10*nJogadas
 
     # # player -> OK
     vez = 0
@@ -187,14 +184,12 @@ def main():
     # # Padrão -> OK
     padrao = getPadrao(nJogadasPadrao)
 
-    jog1 = getCombInPadrao(padrao, jogada1)
-    jog2 = getCombInPadrao(padrao, jogada2)
+    jog1 = getIndCombInPadrao(padrao, jogada1, nJogadas)
+    jog2 = getIndCombInPadrao(padrao, jogada2, nJogadas)
 
     getCompJogadas(jog1, jog2, nJogadas, vez, padrao)
 
-    grafo = (criaGrafo('kcck', 'ccck'))
-
-    print(grafo)
+    grafo = (criaGrafo(jogada1, jogada2))
 
     for node in grafo.keys():
         G.add_node(node)

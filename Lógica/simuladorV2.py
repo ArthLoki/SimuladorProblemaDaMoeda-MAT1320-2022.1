@@ -72,6 +72,7 @@ def getIndCombInPadrao(padrao, jogadaPlayer, nJogadas):
         if jogadaPlayer==padrao[i:i+nJogadas]:
             return i
         i+=1
+    return len(padrao) + 1
 
 
 def getCompJogadas(jog1, jog2, nJogadas, vez, padrao):
